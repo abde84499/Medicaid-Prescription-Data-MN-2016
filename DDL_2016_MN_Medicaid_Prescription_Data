@@ -1,0 +1,49 @@
+--DDL for parent table:
+CREATE TABLE `Medicaid_Prescription_Data` (
+  `Unique_ID` int NOT NULL,
+  `YEAR` year DEFAULT NULL,
+  `Number_Scripts` int NOT NULL,
+  `Launch_Year` year DEFAULT NULL,
+  `Prop_Name` varchar(150) NOT NULL,
+  `Type_ID` int NOT NULL,
+  `Manuf_ID` int NOT NULL,
+  `Dosage_ID` int NOT NULL,
+  `Payer_ID` int NOT NULL,
+  `Unique_Members` int NOT NULL,
+  `Ther_ID` int NOT NULL,
+  PRIMARY KEY (`Unique_ID`),
+  KEY `Payer_FK_idx` (`Payer_ID`),
+  KEY `Ther_FK_idx` (`Ther_ID`),
+  KEY `Type_FK_idx` (`Type_ID`),
+  KEY `Dosage_FK_idx` (`Dosage_ID`),
+  KEY `Manuf_FK_idx` (`Manuf_ID`),
+  CONSTRAINT `Dosage_FK` FOREIGN KEY (`Dosage_ID`) REFERENCES `Dosage_Form` (`Dosage_ID`),
+  CONSTRAINT `Manuf_FK` FOREIGN KEY (`Manuf_ID`) REFERENCES `Manufacturer` (`Manuf_ID`),
+  CONSTRAINT `Payer_FK` FOREIGN KEY (`Payer_ID`) REFERENCES `Payer_Data` (`Payer_ID`),
+  CONSTRAINT `Ther_FK` FOREIGN KEY (`Ther_ID`) REFERENCES `Ther_Class` (`Ther_ID`),
+  CONSTRAINT `Type_FK` FOREIGN KEY (`Type_ID`) REFERENCES `Type_Data` (`Type_ID`)
+--DDL for Dosage table:
+CREATE TABLE `Dosage_Form` (
+  `Dosage_ID` int NOT NULL,
+  `Dosage_Form` varchar(190) NOT NULL,
+  PRIMARY KEY (`Dosage_ID`)
+--DDL for Manufacturer table:
+CREATE TABLE `Manufacturer` (
+  `Manuf_ID` int NOT NULL,
+  `Manuf_Name` varchar(99) NOT NULL,
+  PRIMARY KEY (`Manuf_ID`)
+--DDL for Payer_Data:
+CREATE TABLE `Payer_Data` (
+  `Payer_ID` int NOT NULL,
+  `Payer_Name` varchar(45) NOT NULL,
+  PRIMARY KEY (`Payer_ID`)
+--DDL for Therapeutic Class table:
+CREATE TABLE `Ther_Class` (
+  `Ther_ID` int NOT NULL,
+  `Ther_Class` varchar(50) NOT NULL,
+  PRIMARY KEY (`Ther_ID`)
+--DDL for Medication type table:
+CREATE TABLE `Payer_Data` (
+  `Payer_ID` int NOT NULL,
+  `Payer_Name` varchar(45) NOT NULL,
+  PRIMARY KEY (`Payer_ID`)
